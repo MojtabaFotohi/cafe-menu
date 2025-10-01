@@ -19,6 +19,15 @@ Cafe Menu is a Django-based web application designed for a modern cafe experienc
 - **Responsive Design**: Tailwind CSS ensures a modern, mobile-friendly UI with a cafe-themed aesthetic (brown/orange gradient).
 - **Persian Support**: Fully RTL interface with Vazirmatn font for Persian text.
 
+
+
+
+![Bubble Babble Tool](./photo/image.png)
+
+
+
+
+
 ## 🛠️ Technologies Used
 - **Backend**: Django 5.2.6, Python 3.8+
 - **Frontend**: HTML, Tailwind CSS (via CDN), JavaScript
