@@ -1,0 +1,252 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    font-family: 'Vazirmatn', sans-serif;
+}
+
+body { 
+    background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #CD853F 100%);
+    min-height: 100vh;
+}
+
+.glass-effect {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.notification-card { 
+    background: white;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(139, 69, 19, 0.15);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    animation: slideUp 0.5s forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+.notification-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #8B4513, #D2691E);
+}
+
+@keyframes slideUp { 
+    from { 
+        opacity: 0;
+        transform: translateY(30px);
+    } 
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    } 
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+.notification-card.removing {
+    animation: slideOut 0.5s forwards;
+}
+
+.notification-card:hover { 
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(139, 69, 19, 0.25);
+    border-color: #D2691E;
+}
+
+.notification-icon { 
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+}
+
+.login-form { 
+    max-width: 480px;
+    margin: auto;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    padding: 40px;
+    animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.login-form input { 
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 14px 18px;
+    width: 100%;
+    background: #f9fafb;
+    transition: all 0.3s ease;
+    font-size: 16px;
+}
+
+.login-form input:focus { 
+    outline: none;
+    border-color: #8B4513;
+    box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+    background: white;
+}
+
+.login-form label { 
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 10px;
+    display: block;
+    font-size: 15px;
+}
+
+.login-form button { 
+    background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+    border: none;
+    padding: 16px;
+    font-weight: 700;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    font-size: 18px;
+    box-shadow: 0 4px 12px rgba(139, 69, 19, 0.4);
+}
+
+.login-form button:hover { 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 69, 19, 0.5);
+}
+
+.login-form button:active {
+    transform: translateY(0);
+}
+
+.notification-time { 
+    font-size: 0.875rem;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.notification-table { 
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header-badge {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.login-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    box-shadow: 0 8px 20px rgba(139, 69, 19, 0.3);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6b7280;
+}
+
+.empty-state svg {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    opacity: 0.5;
+}
+
+@media (max-width: 640px) {
+    .login-form {
+        padding: 30px 24px;
+        margin: 20px;
+    }
+    
+    .notification-card {
+        padding: 20px;
+    }
+    
+    .notification-table {
+        font-size: 1.25rem;
+    }
+    
+    .notification-icon {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.dashboard-header {
+    background: white;
+    border-radius: 24px;
+    padding: 32px;
+    box-shadow: 0 8px 20px rgba(139, 69, 19, 0.15);
+    margin-bottom: 32px;
+}
+
+.stats-badge {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
