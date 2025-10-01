@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>داشبورد ادمین کافه شارلوت</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        
+        body { 
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #CD853F 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .notification-card { 
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(139, 69, 19, 0.15);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            animation: slideUp 0.5s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .notification-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8B4513, #D2691E);
+        }
+        
+        @keyframes slideUp { 
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            } 
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            } 
+        }
+        
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+        
+        .notification-card.removing {
+            animation: slideOut 0.5s forwards;
+        }
+        
+        .notification-card:hover { 
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(139, 69, 19, 0.25);
+            border-color: #D2691E;
+        }
+        
+        .notification-icon { 
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+        }
+        
+        .login-form { 
+            max-width: 480px;
+            margin: auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .login-form input { 
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 14px 18px;
+            width: 100%;
+            background: #f9fafb;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        
+        .login-form input:focus { 
+            outline: none;
+            border-color: #8B4513;
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+            background: white;
+        }
+        
+        .login-form label { 
+            font-weight: 700;
+            color: #374151;
+            margin-bottom: 10px;
+            display: block;
+            font-size: 15px;
+        }
+        
+        .login-form button { 
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            border: none;
+            padding: 16px;
+            font-weight: 700;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.4);
+        }
+        
+        .login-form button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.5);
+        }
+        
+        .login-form button:active {
+            transform: translateY(0);
+        }
+        
+        .notification-time { 
+            font-size: 0.875rem;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+        }
+        
+        .notification-table { 
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header-badge {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .login-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            box-shadow: 0 8px 20px rgba(139, 69, 19, 0.3);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6b7280;
+        }
+        
+        .empty-state svg {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            opacity: 0.5;
+        }
+        
+        @media (max-width: 640px) {
+            .login-form {
+                padding: 30px 24px;
+                margin: 20px;
+            }
+            
+            .notification-card {
+                padding: 20px;
+            }
+            
+            .notification-table {
+                font-size: 1.25rem;
+            }
+            
+            .notification-icon {
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+        .dashboard-header {
+            background: white;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 8px 20px rgba(139, 69, 19, 0.15);
+            margin-bottom: 32px;
+        }
+        
+        .stats-badge {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start py-8 px-4">
+    
+    {% if form %}
+        <!-- Login Form -->
+        <div class="login-form">
+            <div class="login-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="2" class="w-12 h-12">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+            </div>
+            <h2 class="text-3xl font-bold text-center mb-2 bg-gradient-to-r from-amber-800 to-orange-600 bg-clip-text text-transparent">ورود به داشبورد</h2>
+            <p class="text-center text-gray-500 mb-8">کافه شارلوت - پنل مدیریت</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-6">
+                    <label for="{{ form.username.id_for_label }}">نام کاربری</label>
+                    <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" placeholder="نام کاربری خود را وارد کنید" required>
+                    {% if form.username.errors %}
+                        <p class="text-red-500 text-sm mt-2 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {{ form.username.errors.as_text }}
+                        </p>
+                    {% endif %}
+                </div>
+                
+                <div class="mb-6">
+                    <label for="{{ form.password.id_for_label }}">رمز عبور</label>
+                    <input type="password" name="{{ form.password.name }}" id="{{ form.password.id_for_label }}" placeholder="رمز عبور خود را وارد کنید" required>
+                    {% if form.password.errors %}
+                        <p class="text-red-500 text-sm mt-2 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {{ form.password.errors.as_text }}
+                        </p>
+                    {% endif %}
+                </div>
+                
+                {% if form.non_field_errors %}
+                    <div class="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-xl">
+                        <p class="text-red-600 text-sm flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            {{ form.non_field_errors.as_text }}
+                        </p>
+                    </div>
+                {% endif %}
+                
+                <button type="submit" class="text-white w-full">
+                    ورود به داشبورد
+                </button>
+            </form>
+        </div>
+    {% else %}
+        <!-- Dashboard -->
+        <div class="w-full max-w-6xl mx-auto">
+            <!-- Header -->
+            <div class="dashboard-header">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h1 class="text-3xl md:text-4xl font-extrabold mb-2 bg-gradient-to-r from-amber-800 to-orange-600 bg-clip-text text-transparent">
+                            داشبورد مدیریت
+                        </h1>
+                        <p class="text-gray-600 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            نوتیفیکیشن‌های احضار گارسون
+                        </p>
+                    </div>
+                    <div class="header-badge">
+                        ⏰ در انتظار درخواست‌ها
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Notifications Container -->
+            <div id="notifications-container" class="space-y-4">
+                <!-- Empty state will show if no notifications -->
+            </div>
+            
+            <!-- Empty State (hidden by default) -->
+            <div id="empty-state" class="glass-effect rounded-3xl empty-state hidden">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+                </svg>
+                <h3 class="text-xl font-bold mb-2">هنوز درخواستی نیست</h3>
+                <p>وقتی مشتریان گارسون را احضار کنند، اینجا نمایش داده می‌شود</p>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if not form %}
+    <script>
+        let lastTime = '';
+        let notificationCount = 0;
+        const AUTO_DISMISS_TIME = 60000; // 60 seconds in milliseconds
+
+        // Load dismissed notifications from localStorage
+        const dismissedNotifications = JSON.parse(localStorage.getItem('dismissedNotifications') || '[]');
+
+        async function fetchNotifications() {
+            let url = '/notifications/';
+            if (lastTime) {
+                url += `?last_time=${encodeURIComponent(lastTime)}`;
+            }
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                if (data.notifications && data.notifications.length > 0) {
+                    updateNotifications(data.notifications);
+                    lastTime = data.last_time;
+                    notificationCount += data.notifications.length;
+                } else {
+                    lastTime = data.last_time || new Date().toISOString();
+                }
+                
+                updateEmptyState();
+            } catch (error) {
+                console.error('Error fetching notifications:', error);
+            } finally {
+                setTimeout(fetchNotifications, 2000);
+            }
+        }
+
+        function updateEmptyState() {
+            const container = document.getElementById('notifications-container');
+            const emptyState = document.getElementById('empty-state');
+            if (container.children.length === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+            }
+        }
+
+        function dismissNotification(element) {
+            const notifId = element.dataset.notifId;
+            // Add to dismissed notifications
+            dismissedNotifications.push(notifId);
+            localStorage.setItem('dismissedNotifications', JSON.stringify(dismissedNotifications));
+            
+            element.classList.add('removing');
+            setTimeout(() => {
+                element.remove();
+                updateEmptyState();
+            }, 500);
+        }
+
+        function updateNotifications(newNotifs) {
+            const container = document.getElementById('notifications-container');
+            newNotifs.forEach(notif => {
+                const notifId = `${notif.table}-${notif.time}`;
+                
+                // Check if notification was dismissed
+                if (dismissedNotifications.includes(notifId)) {
+                    return; // Skip if already dismissed
+                }
+                
+                // Check for duplicates
+                const existing = Array.from(container.children).find(el => 
+                    el.dataset.notifId === notifId
+                );
+                
+                if (!existing) {
+                    const div = document.createElement('div');
+                    div.classList.add('notification-card');
+                    div.dataset.notifId = notifId;
+                    div.dataset.createdAt = Date.now();
+                    
+                    div.innerHTML = `
+                        <div class="flex items-start gap-5">
+                            <div class="notification-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-8 h-8">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <p class="notification-table mb-2">میز ${notif.table} صداش کرده! 👋</p>
+                                <p class="notification-time">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    ${notif.time}
+                                </p>
+                            </div>
+                            <div class="stats-badge">
+                                جدید
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                    
+                    // Set auto-dismiss timer
+                    setTimeout(() => {
+                        if (document.body.contains(div)) {
+                            dismissNotification(div);
+                        }
+                    }, AUTO_DISMISS_TIME);
+                }
+            });
+            
+            // Sort cards by time (oldest first)
+            const cards = Array.from(container.children);
+            cards.sort((a, b) => {
+                const timeA = parseInt(a.dataset.createdAt);
+                const timeB = parseInt(b.dataset.createdAt);
+                return timeA - timeB;
+            });
+            container.innerHTML = '';
+            cards.forEach(card => container.appendChild(card));
+        }
+
+        // Start fetching
+        fetchNotifications();
+    </script>
+    {% endif %}
+</body>
+</html>
