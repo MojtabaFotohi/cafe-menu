@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>داشبورد ادمین کافه شارلوت</title>
+    <title>داشبورد ادمین کافه cafe</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="{% static 'favicon/favicon.png' %}">
     <link rel="stylesheet" href="{% static 'css/stylesdashboard.css' %}">
 </head>
 
@@ -20,7 +21,7 @@
                 </svg>
             </div>
             <h2 class="text-3xl font-bold text-center mb-2 bg-gradient-to-r from-amber-800 to-orange-600 bg-clip-text text-transparent">ورود به داشبورد</h2>
-            <p class="text-center text-gray-500 mb-8">کافه شارلوت - پنل مدیریت</p>
+            <p class="text-center text-gray-500 mb-8">کافه cafe - پنل مدیریت</p>
             
             <form method="post">
                 {% csrf_token %}
