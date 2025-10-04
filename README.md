@@ -24,7 +24,7 @@ Cafe Menu is a Django-based web application designed for a modern cafe experienc
 ## 👁️ [Demo Live](https://mojtabaft.pythonanywhere.com/)
 --- 
 
-![Bubble Babble Tool](./photo/image.png)
+![cafe menu](./photo/image.png)
 
 
 
